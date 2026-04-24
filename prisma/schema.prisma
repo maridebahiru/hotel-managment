@@ -1,0 +1,61 @@
+// This is your Prisma schema file
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Settings {
+  id               Int     @id @default(1)
+  hotelName        String  @default("Grand Budapest Hotel")
+  tagline          String  @default("Experience timeless luxury.")
+  heroImageUrl     String?
+  logoUrl          String?
+  address          String?
+  phone            String?
+  socialLinks      String? // JSON string format: { facebook: "url", instagram: "url", twitter: "url" }
+  announcement     String?
+  showAnnouncement Boolean @default(false)
+}
+
+model Category {
+  id           Int        @id @default(autoincrement())
+  name         String
+  displayOrder Int        @default(0)
+  isVisible    Boolean    @default(true)
+  imageUrl     String?
+  items        MenuItem[]
+}
+
+model MenuItem {
+  id             Int      @id @default(autoincrement())
+  name           String
+  description    String?
+  price          Float
+  categoryId     Int
+  category       Category @relation(fields: [categoryId], references: [id])
+  imageUrl       String?
+  isAvailable    Boolean  @default(true)
+  isChefSpecial  Boolean  @default(false)
+  isBestSeller   Boolean  @default(false)
+  isTodaySpecial Boolean  @default(false)
+  
+  // Dietary tags
+  isVeg          Boolean  @default(false)
+  isNonVeg       Boolean  @default(false)
+  isVegan        Boolean  @default(false)
+  isSpicy        Boolean  @default(false)
+
+  // Meal time (Breakfast, Lunch, Dinner, AllDay)
+  mealTime       String   @default("AllDay")
+}
+
+model Admin {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+}
