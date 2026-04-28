@@ -49,6 +49,7 @@ model MenuItem {
   isNonVeg       Boolean  @default(false)
   isVegan        Boolean  @default(false)
   isSpicy        Boolean  @default(false)
+  ingredients    String?
 
   // Meal time (Breakfast, Lunch, Dinner, AllDay)
   mealTime       String   @default("AllDay")
