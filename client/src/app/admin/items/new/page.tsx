@@ -41,7 +41,7 @@ export default async function NewItemPage() {
           <div className="flex flex-col gap-2">
             <label className="text-sm font-medium text-gray-300">Category</label>
             <select name="categoryId" required className="bg-foreground/5 border border-foreground/10 rounded-lg p-3 text-foreground focus:outline-none focus:border-[#C9A84C] appearance-none">
-              {categories.map(c => (
+              {categories.map((c: { id: number; name: string }) => (
                 <option key={c.id} value={c.id} className="bg-[#0B1F3A]">{c.name}</option>
               ))}
             </select>
